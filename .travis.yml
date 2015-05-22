@@ -11,6 +11,6 @@ node_js:
 #     on:
 #         tags: true
 # 
-# after_success:
-# - npm run coverage
-# - cat ./coverage/lcov.info | node_modules/.bin/coveralls
+after_success:
+- npm run coverage
+- cat ./coverage/lcov.info | node_modules/.bin/coveralls
