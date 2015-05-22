@@ -6,7 +6,6 @@
 var assert = require('assert'),
     url = require('url'),
     events = require('events'),
-    Clock = require('./clock'),
     RedisClientMock = require('./redis-client-mock'),
     Cache = require('../lib/cache');
 
