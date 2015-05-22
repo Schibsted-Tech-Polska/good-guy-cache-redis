@@ -1,5 +1,5 @@
 /* jshint node:true */
-/* global describe, it */
+/* global describe, it, expect */
 
 'use strict';
 
@@ -91,6 +91,22 @@ describe('Cache', function () {
             done();
         });
 
+    });
+
+    it('should prevent redis client from crashing whole app upon error', function (done) {
+        
+        // given
+        var redisClient = new RedisClientMock();
+        var cache = new Cache({
+            redisClient: redisClient
+        });
+
+        // when
+        redisClient.emit('error');
+
+        // then
+        assert.ok(true);
+        done();
     });
 
 });
