@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+    - "0.12"
+    - "0.10"
+
+# deploy:
+#     provider: npm
+#     email: jarmicki@gmail.com
+#     api_key:
+#         secure: "D1ZLbiJNzB1a4F32+AMiBgu6n3sz+BZNMNhztRjaTsrz8W3gRqIdMOMSXDbUbmVCXtVY4FqNwD9fEY6fbhIgfmFQ0Zc+L5LqvrzmNcM4+5nQW95+bYVNhSpR/VhTVr44cLfYFRVMUhLmIyMzjF4rvrWvr+P7jbIVAAShPGjbgwE="
+#     on:
+#         tags: true
+# 
+# after_success:
+# - npm run coverage
+# - cat ./coverage/lcov.info | node_modules/.bin/coveralls

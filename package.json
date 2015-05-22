@@ -1,0 +1,26 @@
+{
+  "name": "good-guy-cache-redis",
+  "version": "1.0.0",
+  "description": "Redis cache adapter for Good Guy HTTP",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/*.js",
+    "coverage": "./node_modules/.bin/istanbul cover node_modules/mocha/bin/_mocha test/*.js -- --recursive"
+  },
+  "dependencies": {
+    "bluebird": "2.9.14",
+    "clone": "1.0.1",
+    "redis": "0.12.1"
+  },
+  "devDependencies": {
+    "mocha": "2.1.0",
+    "coveralls": "2.11.2",
+    "istanbul": "0.3.13"
+  },
+  "keywords": [
+    "good guy http",
+    "redis"
+  ],
+  "author": "",
+  "license": "ISC"
+}
