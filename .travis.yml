@@ -1,16 +1,14 @@
 language: node_js
 node_js:
-    - "0.12"
-    - "0.10"
-
-# deploy:
-#     provider: npm
-#     email: jarmicki@gmail.com
-#     api_key:
-#         secure: "D1ZLbiJNzB1a4F32+AMiBgu6n3sz+BZNMNhztRjaTsrz8W3gRqIdMOMSXDbUbmVCXtVY4FqNwD9fEY6fbhIgfmFQ0Zc+L5LqvrzmNcM4+5nQW95+bYVNhSpR/VhTVr44cLfYFRVMUhLmIyMzjF4rvrWvr+P7jbIVAAShPGjbgwE="
-#     on:
-#         tags: true
-# 
+- '0.12'
+- '0.10'
 after_success:
 - npm run coverage
 - cat ./coverage/lcov.info | node_modules/.bin/coveralls
+deploy:
+  provider: npm
+  email: jarmicki@gmail.com
+  on:
+    tags: true
+  api_key:
+    secure: TQ+o0t1BeDzdb5u7O7ulvA1OlkXYjGN8vx0TFK1s/b7Sug/rN4T1GJflb2mSAJ6GjQevpmrDrP5qGdBWRgE7/lAlmEXp9CrQ/a9qS621rMkzf87TL6Mu4kN9o3lCdZz0HziYRLeDoWLAG4LCA32JsExxDa4eD0dWh0HhL70KceK6/zD9YAhVJrs5lFe8c9opcFGT/8JaHYQ9r7Chy+46sC5hqZE/3ljbXKIrcVCyrI1fCCawJg4k4/TNffZkIOdRKZfjRfeJq4oJ+KQVP628OW4D6hqdJMAX5QoPVGjKT07S2JS56lzG5azZ+UhrH7JZtf7AQc1L0YpE9S0RGl3QICTunC2lxQ3955ytbQ6jlde+oLT9KJDxaSnGbO12g+34V31qWWF5I/m8l7olPuxQTZKUVG2HEvjl8QkLKMqmOcHO9s7rSLtpdqDsXgr3WPmL7hGTOvFsfYTDIOVjqVqHzqjk8wpjolJaHs1C1acJ7LKAiWOd+IAs0JYJ/DHumAAIpet1pUtzOQ4dzs/qPP93lNBx0DiyrGgNv7E9It7Hg3K7Mp1wAgDdRWY7sSKHbjxQlRji5O2fkP+RjPRm+UpdqNhdelCWg/7xdx99VdzH52lh8JTjKKK7LXXDkVuRPvcRUuTND22WYUryZkxLLnGGbcqaETGHey7t58kDCTk7euo=

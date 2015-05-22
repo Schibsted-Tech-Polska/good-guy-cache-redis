@@ -1,6 +1,6 @@
 {
   "name": "good-guy-cache-redis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Redis cache adapter for Good Guy HTTP",
   "main": "index.js",
   "scripts": {
