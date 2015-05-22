@@ -109,4 +109,27 @@ describe('Cache', function () {
         done();
     });
 
+    it('should create redis client with default options if it wasn\'t passed directly', function () {
+
+        // given
+        var cache = new Cache();
+
+        // then
+        assert.equal(typeof cache.redisClient, 'object');
+        assert.equal(cache.redisClient.address, '127.0.0.1:6379');
+    });
+
+    it('should create redis client with custom options if they were specified', function () {
+
+        // given
+        var cache = new Cache({
+            host: '0.0.0.0',
+            port: '6969'
+        });
+
+        // then
+        assert.equal(typeof cache.redisClient, 'object');
+        assert.equal(cache.redisClient.address, '0.0.0.0:6969');
+    });
+
 });
