@@ -72,7 +72,7 @@ describe('Cache', function () {
 
     });
 
-    it('should reject a promise when no entry was found', function (done) {
+    it('should resolve a promise with no value when no entry was found', function (done) {
         
         // given
         var cache = new Cache({
@@ -83,13 +83,55 @@ describe('Cache', function () {
         cache.retrieve('nonexistent')
 
         // then
+        .then(function(response) {
+            assert.equal(response, undefined);
+            done();
+        })
+        .catch(done);
+
+    });
+
+    it('should reject a promise when entry could not be saved', function (done) {
+        
+        // given
+        var redisClient = new RedisClientMock();
+        redisClient.set = function(key, value, cb) {
+            return cb(new Error('something went wrong'));
+        };
+        var cache = new Cache({
+            redisClient: redisClient
+        });
+
+        // when
+        cache.store('key', 'value')
+
+        // then
         .then(function() {
-            done(new Error('promise resolved for nonexistent key'));
+            done(new Error('promise resolved despite redis client error'));
         })
         .catch(function(err) {
-            assert.equal(err.message, 'cache entry not found');
+            assert.equal(err.message, 'something went wrong');
             done();
         });
+
+    });
+
+    it('should resolve a promise when entry was saved', function (done) {
+        
+        // given
+        var cache = new Cache({
+            redisClient: new RedisClientMock()
+        });
+
+        // when
+        cache.store('key', 'value')
+
+        // then
+        .then(function() {
+            assert.ok(true);
+            done();
+        })
+        .catch(done);
 
     });
 
