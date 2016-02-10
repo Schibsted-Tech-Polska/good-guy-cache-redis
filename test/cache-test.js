@@ -19,15 +19,6 @@ describe('Cache', function () {
             redisClient: redisClient
         });
 
-        redisClient.storage = {};
-        redisClient.set = function(key, value, cb) {
-            this.storage[key] = value;
-            cb();
-        };
-        redisClient.get = function(key, cb) {
-            return cb(null, this.storage[key]);
-        };
-
         // when
         cache.store('key', {
             value: true
@@ -48,7 +39,7 @@ describe('Cache', function () {
     });
 
     it('should reject a promise when client returned an error', function (done) {
-        
+
         // given
         var redisClient = new RedisClientMock();
         redisClient.get = function(key, cb) {
@@ -73,7 +64,7 @@ describe('Cache', function () {
     });
 
     it('should resolve a promise with no value when no entry was found', function (done) {
-        
+
         // given
         var cache = new Cache({
             redisClient: new RedisClientMock()
@@ -92,7 +83,7 @@ describe('Cache', function () {
     });
 
     it('should reject a promise when entry could not be saved', function (done) {
-        
+
         // given
         var redisClient = new RedisClientMock();
         redisClient.set = function(key, value, cb) {
@@ -117,7 +108,7 @@ describe('Cache', function () {
     });
 
     it('should resolve a promise when entry was saved', function (done) {
-        
+
         // given
         var cache = new Cache({
             redisClient: new RedisClientMock()
@@ -132,11 +123,34 @@ describe('Cache', function () {
             done();
         })
         .catch(done);
+    });
 
+    it('should set a TTL on Redis keys by default', function(done) {
+        var redisClient = new RedisClientMock();
+        var cache = new Cache({redisClient: redisClient});
+        cache.store("test", {test: 123}).then(function() {
+          assert.equal(redisClient._ttlFor('test'), 60*60*24);
+        }).then(done).catch(done);
+    });
+
+    it('should allow changing the TTL', function(done) {
+      var redisClient = new RedisClientMock();
+      var cache = new Cache({redisClient: redisClient, ttl: 60});
+      cache.store("test", {test: 123}).then(function() {
+        assert.equal(redisClient._ttlFor('test'), 60);
+      }).then(done).catch(done);
+    });
+
+    it('should allow disabling the TTL by setting it to Infinity', function(done) {
+      var redisClient = new RedisClientMock();
+      var cache = new Cache({redisClient: redisClient, ttl: Infinity});
+      cache.store("test", {test: 123}).then(function() {
+        assert.strictEqual(redisClient._ttlFor('test'), undefined);
+      }).then(done).catch(done);
     });
 
     it('should prevent redis client from crashing whole app upon error', function (done) {
-        
+
         // given
         var redisClient = new RedisClientMock();
         var cache = new Cache({

@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "bluebird": "2.9.14",
-    "clone": "1.0.1",
     "redis": "0.12.1"
   },
   "devDependencies": {
