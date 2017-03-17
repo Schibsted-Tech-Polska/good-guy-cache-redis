@@ -38,6 +38,30 @@ describe('Cache', function () {
 
     });
 
+    it('should be able to evict a value', function (done) {
+        // given
+        var redisClient = new RedisClientMock();
+        var cache = new Cache({
+            redisClient: redisClient
+        });
+
+        // when
+        cache.store('key', {
+            value: true
+        })
+        .then(function() {
+            return cache.evict('key');
+        })
+        .then(function() {
+            return cache.retrieve('key');
+        })
+
+        // then
+        .then(function(retrieved) {
+            assert.equal(retrieved, undefined);
+        }).then(done).catch(done);
+    });
+
     it('should reject a promise when client returned an error', function (done) {
 
         // given

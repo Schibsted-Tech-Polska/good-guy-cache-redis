@@ -28,6 +28,11 @@ RedisClientMock.prototype.get = function(key, callback) {
     return callback(null, null);
 };
 
+RedisClientMock.prototype.del = function(key, callback) {
+    delete this.storage[key];
+    return callback(null, null);
+};
+
 RedisClientMock.prototype.expire = function(key, time, callback) {
   if(this.storage[key]) {
     this.storage[key].ttl = time;
